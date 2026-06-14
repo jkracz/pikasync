@@ -1,0 +1,5 @@
+{
+	"extends": "@pikasync/typescript-config/convex.json",
+	"include": ["./**/*", "./_generated/**/*.d.ts"],
+	"exclude": ["./_generated/**/*.js"]
+}

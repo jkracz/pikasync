@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# pnpm
+.pnpm-store
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Build outputs
+dist
+dist-ssr
+.output
+.nitro
+.tanstack
+.vinxi
+.wrangler
+
+# Vite / TanStack Start
+.vite/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+__unconfig*
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage
+
+# OS
+.DS_Store
+
+# Local overrides
+*.local
+todos.json
+
+.turbo

@@ -1,0 +1,31 @@
+{
+	"name": "@pikasync/backend",
+	"version": "1.0.0",
+	"type": "module",
+	"private": true,
+	"exports": {
+		"./convex/_generated/api": {
+			"types": "./convex/_generated/api.d.ts",
+			"import": "./convex/_generated/api.js"
+		}
+	},
+	"scripts": {
+		"dev": "convex dev",
+		"lint": "biome lint .",
+		"typecheck": "tsc --noEmit -p convex",
+		"check": "pnpm lint && pnpm typecheck",
+		"test": "vitest",
+		"test:once": "vitest run",
+		"test:coverage": "vitest run --coverage"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@convex-dev/aggregate": "^0.2.1",
+		"@posthog/convex": "^2.0.28",
+		"convex": "^1.41.0"
+	},
+	"devDependencies": {
+		"@pikasync/typescript-config": "workspace:*"
+	}
+}

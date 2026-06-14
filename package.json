@@ -1,0 +1,24 @@
+{
+	"name": "pikasync",
+	"version": "1.0.0",
+	"private": true,
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"check": "turbo check",
+		"format": "biome format --write .",
+		"lint": "biome lint .",
+		"typecheck": "turbo typecheck"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@11.6.0",
+	"devDependencies": {
+		"@pikasync/biome-config": "workspace:*",
+		"@biomejs/biome": "2.5.0",
+		"typescript": "^6.0.3"
+	}
+}

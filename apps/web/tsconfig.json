@@ -1,0 +1,10 @@
+{
+	"extends": "@pikasync/typescript-config/react-app.json",
+	"include": ["**/*.ts", "**/*.tsx"],
+	"compilerOptions": {
+		"paths": {
+			"#/*": ["./src/*"],
+			"@/*": ["./src/*"]
+		}
+	}
+}

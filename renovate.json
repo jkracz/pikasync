@@ -1,0 +1,38 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended"],
+	"timezone": "America/Los_Angeles",
+	"schedule": ["* * * * 6,0,1"],
+	"rangeStrategy": "bump",
+	"dependencyDashboard": true,
+	"prCreation": "immediate",
+	"prConcurrentLimit": 5,
+	"packageRules": [
+		{
+			"description": "Wait for npm packages to pass pnpm's release-age gate",
+			"matchDatasources": ["npm"],
+			"minimumReleaseAge": "1 day",
+			"internalChecksFilter": "strict"
+		},
+		{
+			"description": "Ignore pre-1.0 npm dependencies",
+			"matchManagers": ["npm"],
+			"matchCurrentVersion": "/^0\\./",
+			"enabled": false
+		},
+		{
+			"groupName": "Routine updates",
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		},
+		{
+			"matchUpdateTypes": ["major"],
+			"automerge": false
+		},
+		{
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		}
+	]
+}

@@ -1,0 +1,15 @@
+{
+	"name": "@pikasync/typescript-config",
+	"version": "1.0.0",
+	"private": true,
+	"exports": {
+		"./base.json": "./base.json",
+		"./react-app.json": "./react-app.json",
+		"./convex.json": "./convex.json"
+	},
+	"files": [
+		"base.json",
+		"react-app.json",
+		"convex.json"
+	]
+}

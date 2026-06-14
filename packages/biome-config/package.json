@@ -1,0 +1,15 @@
+{
+	"name": "@pikasync/biome-config",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./base.json"
+	},
+	"files": [
+		"base.json"
+	],
+	"peerDependencies": {
+		"@biomejs/biome": "2.4.5"
+	}
+}
