@@ -17,7 +17,7 @@
       "source": "get-convex/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/convex-performance-audit/SKILL.md",
-      "computedHash": "d4f372ad6bed01b3a83983f5e8386017606e1bf8a97833c016af07f277157f96"
+      "computedHash": "2eaf22b20f74ab39f336b41845b834b8796b6d2b380bc078a1ab54769c3f233c"
     },
     "convex-quickstart": {
       "source": "get-convex/agent-skills",
@@ -36,6 +36,12 @@
       "sourceType": "github",
       "skillPath": "skills/shadcn/SKILL.md",
       "computedHash": "ac9d0d69caac7de1d1e5647f3db3bcd2f13af355d6b3a78780fbf7fc80e8dca0"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
