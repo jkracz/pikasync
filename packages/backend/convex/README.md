@@ -1,90 +1,40 @@
-# Welcome to your Convex functions directory!
+# PikaSync Convex backend
 
-Write your Convex functions here.
-See https://docs.convex.dev/functions for more.
+The cloud backend: the source-of-record for workspaces, teams, issues, documents/plans,
+and the **single Markdown normalizer** that both the web app and the sync daemon write
+through. See the root [README](../../../README.md) and the file-format contract in
+[`docs/format-spec.md`](../../../docs/format-spec.md).
 
-A query function that takes two arguments looks like:
+## Layout
 
-```ts
-// convex/myFunctions.ts
-import { query } from "./_generated/server";
-import { v } from "convex/values";
+| File | Purpose |
+| --- | --- |
+| `schema.ts` | Tables: `workspaces`, `workspaceMembers`, `teams`, `teamMembers`, `users`, `issues`, `documents`, `edges` (typed-edge graph), `events` (activity, with human/agent actor), `deviceTokens`. |
+| `lib/format.ts` | The normalizer — frontmatter parse/validate (zod), deterministic canonical serialization, ULID generation, content hashing. |
+| `lib/auth.ts` | Clerk identity → user/workspace/team resolution + **server-side team-boundary authorization** (every read/write is gated). |
+| `lib/write.ts` | Maps normalized content → DB columns; edge sync. |
+| `lib/token.ts` | Device-token hashing + commit-message identifier parsing. |
+| `auth.config.ts` | Clerk provider (`applicationID: "convex"`). |
+| `issues.ts`, `documents.ts`, `teams.ts`, `users.ts`, `events.ts`, `deviceTokens.ts` | Web-facing queries/mutations (Clerk-authed). |
+| `sync.ts` | The **daemon/CLI sync API** — `push` / `pull` / `hello` / `linkCommits` actions, authenticated by a device token (not a Clerk JWT), reusing the same normalizer. |
 
-export const myQueryFunction = query({
-  // Validators for arguments.
-  args: {
-    first: v.number(),
-    second: v.string(),
-  },
+`convex.config.ts` installs the `@posthog/convex` and `@convex-dev/aggregate` components.
 
-  // Function implementation.
-  handler: async (ctx, args) => {
-    // Read the database as many times as you need here.
-    // See https://docs.convex.dev/database/reading-data.
-    const documents = await ctx.db.query("tablename").collect();
+## The invariant
 
-    // Arguments passed from the client are properties of the args object.
-    console.log(args.first, args.second);
+The raw Markdown content is the authority; projected columns are always re-derived from
+it, and **every write (web, CLI, daemon) routes through one normalizer**, so a file edit
+and a web edit converge on byte-identical content. Details in
+[`docs/format-spec.md`](../../../docs/format-spec.md).
 
-    // Write arbitrary JavaScript here: filter, aggregate, build derived data,
-    // remove non-public properties, or create new objects.
-    return documents;
-  },
-});
+## Develop
+
+```bash
+pnpm dev        # convex dev (push + codegen, watch)
+pnpm test       # vitest (convex-test, edge-runtime)
+pnpm check      # biome lint + tsc -p convex
 ```
 
-Using this query function in a React component looks like:
-
-```ts
-const data = useQuery(api.myFunctions.myQueryFunction, {
-  first: 10,
-  second: "hello",
-});
-```
-
-A mutation function looks like:
-
-```ts
-// convex/myFunctions.ts
-import { mutation } from "./_generated/server";
-import { v } from "convex/values";
-
-export const myMutationFunction = mutation({
-  // Validators for arguments.
-  args: {
-    first: v.string(),
-    second: v.string(),
-  },
-
-  // Function implementation.
-  handler: async (ctx, args) => {
-    // Insert or modify documents in the database here.
-    // Mutations can also read from the database like queries.
-    // See https://docs.convex.dev/database/writing-data.
-    const message = { body: args.first, author: args.second };
-    const id = await ctx.db.insert("messages", message);
-
-    // Optionally, return a value from your mutation.
-    return await ctx.db.get("messages", id);
-  },
-});
-```
-
-Using this mutation function in a React component looks like:
-
-```ts
-const mutation = useMutation(api.myFunctions.myMutationFunction);
-function handleButtonPress() {
-  // fire and forget, the most common way to use mutations
-  mutation({ first: "Hello!", second: "me" });
-  // OR
-  // use the result once the mutation has completed
-  mutation({ first: "Hello!", second: "me" }).then((result) =>
-    console.log(result),
-  );
-}
-```
-
-Use the Convex CLI to push your functions to a deployment. See everything
-the Convex CLI can do by running `npx convex -h` in your project root
-directory. To learn more, launch the docs with `npx convex docs`.
+Required deployment env: `CLERK_JWT_ISSUER_DOMAIN` (the Clerk Frontend API URL). A Clerk
+JWT template named `convex` must expose `org_id` / `org_slug` / `org_role` claims so the
+backend can map a Clerk org → workspace and enforce team membership.

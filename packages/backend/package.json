@@ -7,6 +7,9 @@
 		"./convex/_generated/api": {
 			"types": "./convex/_generated/api.d.ts",
 			"import": "./convex/_generated/api.js"
+		},
+		"./convex/_generated/dataModel": {
+			"types": "./convex/_generated/dataModel.d.ts"
 		}
 	},
 	"scripts": {
@@ -23,9 +26,14 @@
 	"dependencies": {
 		"@convex-dev/aggregate": "^0.2.1",
 		"@posthog/convex": "^2.0.28",
-		"convex": "^1.41.0"
+		"convex": "^1.41.0",
+		"yaml": "^2.9.0",
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
-		"@pikasync/typescript-config": "workspace:*"
+		"@edge-runtime/vm": "^5.0.0",
+		"@pikasync/typescript-config": "workspace:*",
+		"convex-test": "^0.0.53",
+		"vitest": "^4.1.8"
 	}
 }

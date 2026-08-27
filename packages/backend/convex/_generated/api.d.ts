@@ -8,7 +8,17 @@
  * @module
  */
 
-import type * as tasks from "../tasks.js";
+import type * as deviceTokens from "../deviceTokens.js";
+import type * as documents from "../documents.js";
+import type * as events from "../events.js";
+import type * as issues from "../issues.js";
+import type * as lib_auth from "../lib/auth.js";
+import type * as lib_format from "../lib/format.js";
+import type * as lib_token from "../lib/token.js";
+import type * as lib_write from "../lib/write.js";
+import type * as sync from "../sync.js";
+import type * as teams from "../teams.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -17,7 +27,17 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  tasks: typeof tasks;
+  deviceTokens: typeof deviceTokens;
+  documents: typeof documents;
+  events: typeof events;
+  issues: typeof issues;
+  "lib/auth": typeof lib_auth;
+  "lib/format": typeof lib_format;
+  "lib/token": typeof lib_token;
+  "lib/write": typeof lib_write;
+  sync: typeof sync;
+  teams: typeof teams;
+  users: typeof users;
 }>;
 
 /**

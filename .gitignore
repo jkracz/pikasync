@@ -33,6 +33,9 @@ __unconfig*
 # Testing
 coverage
 
+# Rust (daemon)
+target/
+
 # OS
 .DS_Store
 

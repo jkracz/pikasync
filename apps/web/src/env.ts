@@ -15,6 +15,9 @@ export const env = createEnv({
 	client: {
 		VITE_APP_TITLE: z.string().min(1).optional(),
 		VITE_CONVEX_URL: z.string().url(),
+		// Optional so the app still boots without Clerk configured; auth is
+		// disabled until this is set.
+		VITE_CLERK_PUBLISHABLE_KEY: z.string().optional(),
 	},
 
 	/**
