@@ -22,8 +22,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"@convex-dev/aggregate": "^0.2.1",
-		"@posthog/convex": "^2.0.28",
-		"convex": "^1.41.0"
+		"@posthog/convex": "^2.1.4",
+		"convex": "^1.45.0"
 	},
 	"devDependencies": {
 		"@pikasync/typescript-config": "workspace:*"
