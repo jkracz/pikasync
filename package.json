@@ -15,10 +15,10 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"packageManager": "pnpm@11.6.0",
+	"packageManager": "pnpm@11.28.11",
 	"devDependencies": {
 		"@pikasync/biome-config": "workspace:*",
-		"@biomejs/biome": "2.5.0",
+		"@biomejs/biome": "2.6.6",
 		"typescript": "^6.0.3"
 	}
 }
